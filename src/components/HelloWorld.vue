@@ -13,13 +13,15 @@
     <br>
     <textarea v-model="emailText" placeholder=""></textarea>
     <br>
-    <button @click="sendEmail()">Send Email</button>
+    <button @click="validateEmail()">Send Email</button>
   </div>
 </template>
 
 <script>
 import validator from "validator";
 import emailjs from "emailjs-com";
+import axios from "axios";
+
 export default {
   name: "HelloWorld",
   props: {
@@ -28,7 +30,7 @@ export default {
   data: function () {
     return {
       recepientEmail: "",
-      recepientEmails: ["email1","email2"],
+      recepientEmails: ["wyliec94@gmail.com", "email1"],
       subject: "",
       emailText: ""
     }
@@ -54,6 +56,32 @@ export default {
         alert("Success", result);
       }, (error) => {
         alert("Failed", error);
+      });
+    },
+    validateEmail() {
+      const validationParams = {
+        from: "wyliec94@gmail.com",
+        subject: this.subject,
+        text: this.emailText,
+        html: "",
+        toList: this.recepientEmails,
+        ccList: [],
+        bccList: []
+      };
+      const config = {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        }
+      };
+      axios.get("https://tt-email-gateway.nnnco.io/v1/api/emails", validationParams, config)
+      .then((response) => {
+        alert(JSON.stringify(response));
+        // this.sendEmail();
+      })
+      .catch((error) => {
+        alert(JSON.stringify(error));
       });
     }
   }
