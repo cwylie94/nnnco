@@ -3,10 +3,14 @@
     <b-form @submit="validateEmail">
       <b-form-group label-for="input-1">
         <ul id="item-list">
+          To:
           <li v-for="(item, index) of recepientEmails" v-bind:key="index" :id="item">
               {{ item }}
-              <b-button class="btn btn-danger btn-sm" @click="removeRecepientEmail(index)">Remove</b-button>
+              <b-button class="btn btn-danger btn-sm" @click="removeRecepientEmail(index)">X</b-button>
           </li>
+          <b-alert v-model="recepientEmailsInvalid" variant="danger" dismissible>
+            Please add at least one recepient
+          </b-alert>
         </ul>
         <b-form-input
           id="input-1"
@@ -56,7 +60,8 @@ export default {
       recepientEmail: "",
       recepientEmails: ["wyliec94@gmail.com", "email1"],
       subject: "",
-      emailText: ""
+      emailText: "",
+      recepientEmailsInvalid: false
     }
   },
   computed: {
@@ -89,6 +94,10 @@ export default {
     },
     validateEmail(event) {
       event.preventDefault();
+      if (this.recepientEmails.length < 1) {
+        this.recepientEmailsInvalid = true;
+        return;
+      }
       const validationParams = {
         from: "wyliec94@gmail.com",
         subject: this.subject,
