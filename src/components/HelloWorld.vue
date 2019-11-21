@@ -3,17 +3,17 @@
     <ul id="item-list">
       <li v-for="(item, index) of recepientEmails" v-bind:key="index" :id="item">
           {{ item }}
-          <button @click="removeRecepientEmail(index)" />
+          <button class="btn btn-danger btn-sm" @click="removeRecepientEmail(index)">Remove</button>
       </li>
     </ul>
     <input type="text" placeholder="Email" v-model="recepientEmail"/>
-    <button @click="addRecepientEmail(recepientEmail)" />
+    <button class="btn btn-primary btn-sm" @click="addRecepientEmail(recepientEmail)">Add Email</button>
     <br>
     <input type="text" placeholder="Subject" v-model="subject" />
     <br>
     <textarea v-model="emailText" placeholder=""></textarea>
     <br>
-    <button @click="validateEmail()">Send Email</button>
+    <button class="btn btn-success" @click="validateEmail()">Send Email</button>
   </div>
 </template>
 
@@ -21,6 +21,8 @@
 import validator from "validator";
 import emailjs from "emailjs-com";
 import axios from "axios";
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap-vue/dist/bootstrap-vue.css';
 
 export default {
   name: "HelloWorld",
