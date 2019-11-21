@@ -1,24 +1,45 @@
 <template>
   <div class="hello rounded-lg">
     <b-form @submit="validateEmail">
-      <b-form-group label-for="input-1">
+
+      <b-form-group label-for="recepient-email-input">
         <ul id="item-list">
           To:
           <li v-for="(item, index) of recepientEmails" v-bind:key="index" :id="item">
               {{ item }}
-              <b-button class="btn btn-danger btn-sm" @click="removeRecepientEmail(index)">X</b-button>
+              <b-button class="btn btn-danger btn-sm" @click="removeEmail(recepientEmails, index)">X</b-button>
           </li>
         </ul>
         <b-alert v-model="recepientEmailsInvalid" variant="danger" dismissible>
           Please add at least one recepient
         </b-alert>
         <b-form-input
-          id="input-1"
+          id="recepient-email-input"
           v-model="recepientEmail"
           type="email"
           placeholder="Email"
           :state="isValidEmail"/>
-          <b-button variant="secondary" @click="addRecepientEmail(recepientEmail)">Add Email</b-button>
+          <b-button variant="secondary" @click="addRecepientEmail(recepientEmails, recepientEmail)">Add Email</b-button>
+      </b-form-group>
+
+      <b-form-group label-for="cc-email-input">
+        <ul id="item-list">
+          To:
+          <li v-for="(item, index) of ccList" v-bind:key="index" :id="item">
+              {{ item }}
+              <b-button class="btn btn-danger btn-sm" @click="removeEmail(ccList, index)">X</b-button>
+          </li>
+        </ul>
+        <b-alert v-model="ccEmailsInvalid" variant="danger" dismissible>
+          Please add at least one recepient
+        </b-alert>
+        <b-form-input
+          id="cc-email-input"
+          v-model="cc"
+          type="email"
+          placeholder="cc"
+          :state="isValidCC"/>
+          <b-button variant="secondary" @click="addCCEmail(ccList, cc)">Add Email</b-button>
       </b-form-group>
 
       <b-form-group label-for="input-2">
@@ -59,25 +80,41 @@ export default {
     return {
       recepientEmail: "",
       recepientEmails: ["wyliec94@gmail.com", "email1"],
+      cc: "",
+      ccList: [],
+      bcc: "",
+      bccList: [],
       subject: "",
       emailText: "",
-      recepientEmailsInvalid: false
+      recepientEmailsInvalid: false,
+      ccEmailsInvalid: false,
+      bccEmailsInvalid: false
     }
   },
   computed: {
     isValidEmail() {
       return validator.isEmail(this.recepientEmail);
     },
+    isValidCC() {
+      return validator.isEmail(this.cc);
+    },
   },
   methods: {
-    addRecepientEmail(email) {
+    addEmail(list, email) {
       if (validator.isEmail(email)) {
-        this.recepientEmails.push(email);
-        this.recepientEmail = "";
+        list.push(email);
       }
     },
-    removeRecepientEmail(index) {
-      this.recepientEmails.splice(index, 1);
+    removeEmail(list, index) {
+      list.splice(index, 1);
+    },
+    addRecepientEmail(list, email) {
+      this.addEmail(list, email);
+      this.recepientEmail = "";
+    },
+    addCCEmail(list, email) {
+      this.addEmail(list, email);
+      this.cc = "";
     },
     sendEmail() {
       const templateParams = {
