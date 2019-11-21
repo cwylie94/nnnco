@@ -1,5 +1,5 @@
 <template>
-  <div class="hello">
+  <div class="hello rounded-lg">
     <b-form @submit="validateEmail">
       <b-form-group label-for="input-1">
         <ul id="item-list">
@@ -8,10 +8,10 @@
               {{ item }}
               <b-button class="btn btn-danger btn-sm" @click="removeRecepientEmail(index)">X</b-button>
           </li>
-          <b-alert v-model="recepientEmailsInvalid" variant="danger" dismissible>
-            Please add at least one recepient
-          </b-alert>
         </ul>
+        <b-alert v-model="recepientEmailsInvalid" variant="danger" dismissible>
+          Please add at least one recepient
+        </b-alert>
         <b-form-input
           id="input-1"
           v-model="recepientEmail"
@@ -146,5 +146,9 @@ a {
 .hello {
   width: 600px;
   margin: auto;
+  border-style: solid;
+  border-width: 5px;
+  border-color: lightgrey;
+  padding: 20px;
 }
 </style>
