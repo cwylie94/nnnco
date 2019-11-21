@@ -12,11 +12,14 @@
     <input type="text" placeholder="Subject" v-model="subject" />
     <br>
     <textarea v-model="emailText" placeholder=""></textarea>
+    <br>
+    <button @click="sendEmail()">Send Email</button>
   </div>
 </template>
 
 <script>
 import validator from "validator";
+import emailjs from "emailjs-com";
 export default {
   name: "HelloWorld",
   props: {
@@ -39,6 +42,19 @@ export default {
     },
     removeRecepientEmail(index) {
       this.recepientEmails.splice(index, 1);
+    },
+    sendEmail() {
+      const templateParams = {
+        emailText: this.emailText,
+        subject: this.subject,
+        recepientEmails: this.recepientEmails
+      };
+      emailjs.send("mailgun", "template_4OATzjxr", templateParams, "user_dDd3vEsNsr0d97jTg8i3z")
+      .then((result) => {
+        alert("Success", result);
+      }, (error) => {
+        alert("Failed", error);
+      });
     }
   }
 };
