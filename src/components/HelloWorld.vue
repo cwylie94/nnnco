@@ -1,19 +1,41 @@
 <template>
   <div class="hello">
-    <ul id="item-list">
-      <li v-for="(item, index) of recepientEmails" v-bind:key="index" :id="item">
-          {{ item }}
-          <button class="btn btn-danger btn-sm" @click="removeRecepientEmail(index)">Remove</button>
-      </li>
-    </ul>
-    <input type="text" placeholder="Email" v-model="recepientEmail"/>
-    <button class="btn btn-primary btn-sm" @click="addRecepientEmail(recepientEmail)">Add Email</button>
-    <br>
-    <input type="text" placeholder="Subject" v-model="subject" />
-    <br>
-    <textarea v-model="emailText" placeholder=""></textarea>
-    <br>
-    <button class="btn btn-success" @click="validateEmail()">Send Email</button>
+    <b-form @submit="validateEmail">
+      <b-form-group label-for="input-1">
+        <ul id="item-list">
+          <li v-for="(item, index) of recepientEmails" v-bind:key="index" :id="item">
+              {{ item }}
+              <b-button class="btn btn-danger btn-sm" @click="removeRecepientEmail(index)">Remove</b-button>
+          </li>
+        </ul>
+        <b-form-input
+          id="input-1"
+          v-model="recepientEmail"
+          type="email"
+          placeholder="Email"
+          :state="isValidEmail"/>
+          <b-button variant="secondary" @click="addRecepientEmail(recepientEmail)">Add Email</b-button>
+      </b-form-group>
+
+      <b-form-group label-for="input-2">
+        <b-form-input
+          id="input-2"
+          v-model="subject"
+          type="text"
+          required
+          placeholder="Subject"/>
+      </b-form-group>
+
+      <b-form-textarea
+        id="textarea"
+        v-model="emailText"
+        placeholder="Enter email text..."
+        rows="3"
+        required
+        max-rows="6">
+      </b-form-textarea>
+    <b-button type="submit" variant="primary">Submit</b-button>
+  </b-form>
   </div>
 </template>
 
@@ -36,6 +58,11 @@ export default {
       subject: "",
       emailText: ""
     }
+  },
+  computed: {
+    isValidEmail() {
+      return validator.isEmail(this.recepientEmail);
+    },
   },
   methods: {
     addRecepientEmail(email) {
@@ -60,7 +87,8 @@ export default {
         alert("Failed", error);
       });
     },
-    validateEmail() {
+    validateEmail(event) {
+      event.preventDefault();
       const validationParams = {
         from: "wyliec94@gmail.com",
         subject: this.subject,
@@ -105,5 +133,9 @@ li {
 }
 a {
   color: #42b983;
+}
+.hello {
+  width: 600px;
+  margin: auto;
 }
 </style>
