@@ -150,5 +150,7 @@ a {
   border-width: 5px;
   border-color: lightgrey;
   padding: 20px;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 </style>

@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
+    <div class="banner">
+      <img alt="Vue logo" src="./assets/nnnco_logo.png" />
+    </div>
     <HelloWorld msg="Welcome to Your Vue.js App" />
   </div>
 </template>
@@ -23,6 +25,11 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  background-color: #E3DCDC;
+}
+.banner {
+  background-color: #4C4747;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 </style>
