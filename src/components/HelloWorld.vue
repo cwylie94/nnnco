@@ -1,7 +1,13 @@
 <template>
   <div class="hello">
-    <input v-model="recepientEmail" placeholder="Email" />
-    <p>Email: {{ recepientEmail }}</p>
+    <ul id="item-list">
+      <li v-for="(item, index) of recepientEmails" v-bind:key="index" :id="item">
+          {{ item }}
+          <button @click="removeRecepientEmail(index)" />
+      </li>
+    </ul>
+    <input type="text" placeholder="Email" v-model="recepientEmail"/>
+    <button @click="addRecepientEmail(recepientEmail)" />
   </div>
 </template>
 
@@ -13,7 +19,19 @@ export default {
   },
   data: function () {
     return {
-      recepientEmail: ""
+      recepientEmail: "",
+      recepientEmails: ["email1","email2"]
+    }
+  },
+  methods: {
+    addRecepientEmail(email) {
+      if (email !== "") {
+        this.recepientEmails.push(email);
+        this.recepientEmail = "";
+      }
+    },
+    removeRecepientEmail(index) {
+      this.recepientEmails.splice(index, 1);
     }
   }
 };
