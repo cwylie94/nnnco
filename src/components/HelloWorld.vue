@@ -8,10 +8,15 @@
     </ul>
     <input type="text" placeholder="Email" v-model="recepientEmail"/>
     <button @click="addRecepientEmail(recepientEmail)" />
+    <br>
+    <input type="text" placeholder="Subject" v-model="subject" />
+    <br>
+    <textarea v-model="emailText" placeholder=""></textarea>
   </div>
 </template>
 
 <script>
+import validator from "validator";
 export default {
   name: "HelloWorld",
   props: {
@@ -20,12 +25,14 @@ export default {
   data: function () {
     return {
       recepientEmail: "",
-      recepientEmails: ["email1","email2"]
+      recepientEmails: ["email1","email2"],
+      subject: "",
+      emailText: ""
     }
   },
   methods: {
     addRecepientEmail(email) {
-      if (email !== "") {
+      if (validator.isEmail(email)) {
         this.recepientEmails.push(email);
         this.recepientEmail = "";
       }
