@@ -19,21 +19,4 @@ export default {
 };
 </script>
 
-<style>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  background-color: #E3DCDC;
-}
-.banner {
-  background-color: #4C4747;
-  padding-top: 20px;
-  padding-bottom: 20px;
-}
-.email-client-title {
-  margin-top: 20px;
-}
-</style>
+<style src="./styles/app.css"></style>
