@@ -2,44 +2,60 @@
   <div class="hello rounded-lg">
     <b-form @submit="validateEmail">
 
-      <b-form-group label-for="recepient-email-input">
-        <ul id="item-list">
+      <b-form-group class="email-form" label-for="recepient-email-input">
+        <div class="email-form-text">
           To:
-          <li v-for="(item, index) of recepientEmails" v-bind:key="index" :id="item">
-              {{ item }}
-              <b-button class="btn btn-danger btn-sm" @click="removeEmail(recepientEmails, index)">X</b-button>
-          </li>
-        </ul>
+        </div>
+        <div class="email-list-container">
+          <ul id="item-list">
+            <li class="email-form-list-item" v-for="(item, index) of recepientEmails" v-bind:key="index" :id="item">
+                {{ item }}
+                <b-button class="btn btn-danger btn-sm" @click="removeEmail(recepientEmails, index)">X</b-button>
+            </li>
+          </ul>
+        </div>
         <b-alert v-model="recepientEmailsInvalid" variant="danger" dismissible>
           Please add at least one recepient
         </b-alert>
         <b-form-input
           id="recepient-email-input"
+          class="email-form-input"
           v-model="recepientEmail"
           type="email"
           placeholder="Email"
           :state="isValidEmail"/>
-          <b-button variant="secondary" @click="addRecepientEmail(recepientEmails, recepientEmail)">Add Email</b-button>
+        <b-button
+          variant="secondary"
+          class="email-form-button"
+          @click="addRecepientEmail(recepientEmails, recepientEmail)">+</b-button>
       </b-form-group>
 
-      <b-form-group label-for="cc-email-input">
-        <ul id="item-list">
-          To:
-          <li v-for="(item, index) of ccList" v-bind:key="index" :id="item">
-              {{ item }}
-              <b-button class="btn btn-danger btn-sm" @click="removeEmail(ccList, index)">X</b-button>
-          </li>
-        </ul>
+      <b-form-group class="email-form" label-for="cc-email-input">
+        <div class="email-form-text">
+          CC:
+        </div>
+        <div class="email-list-container">
+          <ul id="item-list">
+            <li class="email-form-list-item" v-for="(item, index) of ccList" v-bind:key="index" :id="item">
+                {{ item }}
+                <b-button class="btn btn-danger btn-sm" @click="removeEmail(ccList, index)">X</b-button>
+            </li>
+          </ul>
+        </div>
         <b-alert v-model="ccEmailsInvalid" variant="danger" dismissible>
           Please add at least one recepient
         </b-alert>
         <b-form-input
           id="cc-email-input"
+          class="email-form-input"
           v-model="cc"
           type="email"
           placeholder="cc"
           :state="isValidCC"/>
-          <b-button variant="secondary" @click="addCCEmail(ccList, cc)">Add Email</b-button>
+          <b-button
+            variant="secondary"
+            class="email-form-button"
+            @click="addCCEmail(ccList, cc)">+</b-button>
       </b-form-group>
 
       <b-form-group label-for="input-2">
@@ -178,6 +194,8 @@ h3 {
 ul {
   list-style-type: none;
   padding: 0;
+  float: left;
+  display: inline;
 }
 li {
   display: inline-block;
@@ -195,5 +213,48 @@ a {
   padding: 20px;
   margin-top: 30px;
   margin-bottom: 30px;
+}
+.email-form {
+  margin-top: 20px;
+  float: left;
+  width: 100%;
+}
+.email-form-input {
+  float: left;
+  display: inline;
+  width: 60%;
+  margin-right: 10px;
+  margin-top: 10px;
+}
+.email-form-button {
+  float: left;
+  display: inline;
+  margin-top: 10px;
+}
+.email-list-container {
+  border-style: solid;
+  border-width: 2px;
+  border-color: lightgrey;
+  border-radius: 10px;
+  width: 90%;
+  height: 70px;
+  overflow: auto;
+  float: right;
+  padding: 5px;
+}
+.email-form-text {
+  float: left;
+  display: inline;
+  margin-top: 20px;
+}
+.email-form-list-item {
+  float: left;
+  display: inline;
+  border-style: solid;
+  border-width: 2px;
+  border-color: lightgrey;
+  border-radius: 20px;
+  padding: 6px;
+  background-color: whitesmoke;
 }
 </style>
