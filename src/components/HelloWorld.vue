@@ -2,6 +2,9 @@
   <div class="hello rounded-lg">
     <b-form @submit="validateEmail">
 
+      <b-alert class="email-error-alert" v-model="recepientEmailsInvalid" variant="danger" dismissible>
+        Please add at least one recepient
+      </b-alert>
       <b-form-group class="email-form" label-for="recepient-email-input">
         <div class="email-form-text">
           To:
@@ -14,9 +17,6 @@
             </li>
           </ul>
         </div>
-        <b-alert v-model="recepientEmailsInvalid" variant="danger" dismissible>
-          Please add at least one recepient
-        </b-alert>
         <b-form-input
           id="recepient-email-input"
           class="email-form-input"
@@ -326,5 +326,10 @@ a {
 .submit-button {
   margin-top: 10px;
   margin-bottom: 10px;
+}
+.email-error-alert {
+  width: 100%;
+  height: 50px;
+  float: left;
 }
 </style>
