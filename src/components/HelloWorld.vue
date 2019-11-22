@@ -108,6 +108,9 @@
         max-rows="6">
       </b-form-textarea>
     <b-button class="submit-button" type="submit" variant="primary">Submit</b-button>
+    <b-alert v-model="submitEmailSuccess" variant="success" dismissible>
+      Email sent successfully
+    </b-alert>
     <b-alert v-model="submitEmailFailed" variant="danger" dismissible>
       Email validation failed, please try again
     </b-alert>
@@ -141,6 +144,7 @@ export default {
       ccEmailsInvalid: false,
       bccEmailsInvalid: false,
       submitEmailFailed: false,
+      submitEmailSuccess: false
     }
   },
   computed: {
@@ -218,6 +222,7 @@ export default {
       axios.post("/v1/api/emails", validationParams, config)
       .then((response) => {
         if (response.status === 200) {
+          this.submitEmailSuccess = true;
           alert(response.status);
           // this.sendEmail();
         }
@@ -311,5 +316,6 @@ a {
 }
 .submit-button {
   margin-top: 10px;
+  margin-bottom: 10px;
 }
 </style>
