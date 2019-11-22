@@ -30,61 +30,65 @@
           @click="addRecepientEmail(recepientEmails, recepientEmail)">+</b-button>
       </b-form-group>
 
-      <b-form-group class="email-form" label-for="cc-email-input">
-        <div class="email-form-text">
-          CC:
-        </div>
-        <div class="email-list-container">
-          <ul id="item-list">
-            <li class="email-form-list-item" v-for="(item, index) of ccList" v-bind:key="index" :id="item">
-                {{ item }}
-                <b-button class="btn btn-danger btn-sm" @click="removeEmail(ccList, index)">X</b-button>
-            </li>
-          </ul>
-        </div>
-        <b-alert v-model="ccEmailsInvalid" variant="danger" dismissible>
-          Please add at least one recepient
-        </b-alert>
-        <b-form-input
-          id="cc-email-input"
-          class="email-form-input"
-          v-model="cc"
-          type="email"
-          placeholder="cc"
-          :state="isValidCC"/>
-          <b-button
-            variant="secondary"
-            class="email-form-button"
-            @click="addCCEmail(ccList, cc)">+</b-button>
-      </b-form-group>
+      <div class="cc-wrapper">
+        <b-form-group class="email-form" label-for="cc-email-input">
+          <div class="email-form-text">
+            CC:
+          </div>
+          <div class="email-list-container">
+            <ul id="item-list">
+              <li class="email-form-list-item" v-for="(item, index) of ccList" v-bind:key="index" :id="item">
+                  {{ item }}
+                  <b-button class="btn btn-danger btn-sm" @click="removeEmail(ccList, index)">X</b-button>
+              </li>
+            </ul>
+          </div>
+          <b-alert v-model="ccEmailsInvalid" variant="danger" dismissible>
+            Please add at least one recepient
+          </b-alert>
+          <b-form-input
+            id="cc-email-input"
+            class="email-form-input"
+            v-model="cc"
+            type="email"
+            placeholder="cc"
+            :state="isValidCC"/>
+            <b-button
+              variant="secondary"
+              class="email-form-button"
+              @click="addCCEmail(ccList, cc)">+</b-button>
+        </b-form-group>
+      </div>
 
-      <b-form-group class="email-form" label-for="bcc-email-input">
-        <div class="email-form-text">
-          BCC:
-        </div>
-        <div class="email-list-container">
-          <ul id="item-list">
-            <li class="email-form-list-item" v-for="(item, index) of bccList" v-bind:key="index" :id="item">
-                {{ item }}
-                <b-button class="btn btn-danger btn-sm" @click="removeEmail(bccList, index)">X</b-button>
-            </li>
-          </ul>
-        </div>
-        <b-alert v-model="bccEmailsInvalid" variant="danger" dismissible>
-          Please add at least one recepient
-        </b-alert>
-        <b-form-input
-          id="bcc-email-input"
-          class="email-form-input"
-          v-model="bcc"
-          type="email"
-          placeholder="bcc"
-          :state="isValidCC"/>
-          <b-button
-            variant="secondary"
-            class="email-form-button"
-            @click="addBCCEmail(bccList, bcc)">+</b-button>
-      </b-form-group>
+      <div class="bcc-wrapper">
+        <b-form-group class="email-form" label-for="bcc-email-input">
+          <div class="email-form-text">
+            BCC:
+          </div>
+          <div class="email-list-container">
+            <ul id="item-list">
+              <li class="email-form-list-item" v-for="(item, index) of bccList" v-bind:key="index" :id="item">
+                  {{ item }}
+                  <b-button class="btn btn-danger btn-sm" @click="removeEmail(bccList, index)">X</b-button>
+              </li>
+            </ul>
+          </div>
+          <b-alert v-model="bccEmailsInvalid" variant="danger" dismissible>
+            Please add at least one recepient
+          </b-alert>
+          <b-form-input
+            id="bcc-email-input"
+            class="email-form-input"
+            v-model="bcc"
+            type="email"
+            placeholder="bcc"
+            :state="isValidCC"/>
+            <b-button
+              variant="secondary"
+              class="email-form-button"
+              @click="addBCCEmail(bccList, bcc)">+</b-button>
+        </b-form-group>
+      </div>
 
       <b-form-group label-for="input-2">
         <b-form-input
@@ -103,7 +107,7 @@
         required
         max-rows="6">
       </b-form-textarea>
-    <b-button type="submit" variant="primary">Submit</b-button>
+    <b-button class="submit-button" type="submit" variant="primary">Submit</b-button>
     <b-alert v-model="submitEmailFailed" variant="danger" dismissible>
       Email validation failed, please try again
     </b-alert>
@@ -245,7 +249,7 @@ a {
   color: #42b983;
 }
 .hello {
-  width: 600px;
+  width: 900px;
   margin: auto;
   border-style: solid;
   border-width: 5px;
@@ -296,5 +300,16 @@ a {
   border-radius: 20px;
   padding: 6px;
   background-color: whitesmoke;
+}
+.cc-wrapper {
+  float: left;
+  width: 45%;
+}
+.bcc-wrapper {
+  float: right;
+  width: 50%;
+}
+.submit-button {
+  margin-top: 10px;
 }
 </style>
