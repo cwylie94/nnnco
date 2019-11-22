@@ -58,6 +58,34 @@
             @click="addCCEmail(ccList, cc)">+</b-button>
       </b-form-group>
 
+      <b-form-group class="email-form" label-for="bcc-email-input">
+        <div class="email-form-text">
+          BCC:
+        </div>
+        <div class="email-list-container">
+          <ul id="item-list">
+            <li class="email-form-list-item" v-for="(item, index) of bccList" v-bind:key="index" :id="item">
+                {{ item }}
+                <b-button class="btn btn-danger btn-sm" @click="removeEmail(bccList, index)">X</b-button>
+            </li>
+          </ul>
+        </div>
+        <b-alert v-model="bccEmailsInvalid" variant="danger" dismissible>
+          Please add at least one recepient
+        </b-alert>
+        <b-form-input
+          id="bcc-email-input"
+          class="email-form-input"
+          v-model="bcc"
+          type="email"
+          placeholder="bcc"
+          :state="isValidCC"/>
+          <b-button
+            variant="secondary"
+            class="email-form-button"
+            @click="addBCCEmail(bccList, bcc)">+</b-button>
+      </b-form-group>
+
       <b-form-group label-for="input-2">
         <b-form-input
           id="input-2"
@@ -118,6 +146,9 @@ export default {
     isValidCC() {
       return validator.isEmail(this.cc);
     },
+    isValidBCC() {
+      return validator.isEmail(this.bcc);
+    },
   },
   methods: {
     addEmail(list, email) {
@@ -135,6 +166,10 @@ export default {
     addCCEmail(list, email) {
       this.addEmail(list, email);
       this.cc = "";
+    },
+    addBCCEmail(list, email) {
+      this.addEmail(list, email);
+      this.bcc = "";
     },
     sendEmail() {
       const templateParams = {
