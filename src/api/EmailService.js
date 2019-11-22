@@ -19,7 +19,7 @@ export function validateEmailData(email, callback) {
     }
   };
   axios
-    .post("/v1/api/emails", validationParams, config)
+    .post("/emails", validationParams, config)
     .then(response => {
       if (response.status === 200) {
         callback(true);
