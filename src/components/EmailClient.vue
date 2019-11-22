@@ -2,6 +2,26 @@
   <div class="hello rounded-lg">
     <b-form @submit="validateEmail">
 
+      <b-form-group class="email-text-container" label-for="input-name">
+        <b-form-input
+          id="input-name"
+          v-model="fromName"
+          type="text"
+          required
+          placeholder="Name"/>
+      </b-form-group>
+
+      <b-form-group class="email-text-container" label-for="input-email">
+        <b-form-input
+          id="input-email"
+          v-model="fromEmail"
+          type="text"
+          required
+          placeholder="Your Email"
+          @keyup="isValidFromEmail = true"
+          :state="isValidFromEmail"/>
+      </b-form-group>
+
       <b-alert class="email-error-alert" v-model="recepientEmailsInvalid" variant="danger" dismissible>
         Please add at least one recepient
       </b-alert>
@@ -85,7 +105,7 @@
             type="email"
             placeholder="bcc"
             @keyup="isValidBCC = true"
-            :state="isValidCC"/>
+            :state="isValidBCC"/>
             <b-button
               variant="secondary"
               class="email-form-button"
@@ -93,7 +113,7 @@
         </b-form-group>
       </div>
 
-      <b-form-group label-for="input-2">
+      <b-form-group class="email-text-container" label-for="input-2">
         <b-form-input
           id="input-2"
           v-model="subject"
@@ -129,12 +149,11 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 
 export default {
-  name: "HelloWorld",
-  props: {
-    msg: String
-  },
+  name: "EmailClient",
   data: function () {
     return {
+      fromName: "",
+      fromEmail: "wyliec94@gmail.com",
       recepientEmail: "",
       recepientEmails: ["wyliec94@gmail.com", "email1"],
       cc: "",
@@ -150,7 +169,8 @@ export default {
       submitEmailSuccess: false,
       isValidEmail: true,
       isValidCC: true,
-      isValidBCC: true
+      isValidBCC: true,
+      isValidFromEmail: true
     }
   },
   methods: {
@@ -187,31 +207,39 @@ export default {
     },
     sendEmail() {
       const templateParams = {
+        fromName: this.fromName,
+        fromEmail: this.fromEmail,
         emailText: this.emailText,
         subject: this.subject,
-        recepientEmails: this.recepientEmails
+        recepientEmails: this.recepientEmails,
+        cc: this.ccList,
+        bcc: this.bccList
       };
       emailjs.send("mailgun", "template_4OATzjxr", templateParams, "user_dDd3vEsNsr0d97jTg8i3z")
-      .then((result) => {
-        alert("Success", result);
-      }, (error) => {
-        alert("Failed", error);
+      .then(() => {
+        this.submitEmailSuccess = true;
+      }, () => {
+        this.submitEmailFailed = true;
       });
     },
     validateEmail(event) {
       event.preventDefault();
+      if (!validator.isEmail(this.fromEmail)) {
+        this.isValidFromEmail = false;
+        return;
+      }
       if (this.recepientEmails.length < 1) {
         this.recepientEmailsInvalid = true;
         return;
       }
       const validationParams = {
-        from: "wyliec94@gmail.com",
+        from: this.fromEmail,
         subject: this.subject,
         text: this.emailText,
         html: this.emailText,
         toList: this.recepientEmails,
-        ccList: [],
-        bccList: []
+        ccList: this.ccList,
+        bccList: this.bccList
       };
       const config = {
         headers: {
@@ -223,9 +251,7 @@ export default {
       axios.post("/v1/api/emails", validationParams, config)
       .then((response) => {
         if (response.status === 200) {
-          this.submitEmailSuccess = true;
-          alert(response.status);
-          // this.sendEmail();
+          this.sendEmail();
         }
       })
       .catch(() => {
@@ -236,7 +262,6 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 h3 {
   margin: 40px 0 0;
@@ -265,7 +290,7 @@ a {
   margin-bottom: 30px;
 }
 .email-form {
-  margin-top: 20px;
+  margin-top: 10px;
   float: left;
   width: 100%;
   border-style: solid;
@@ -331,5 +356,8 @@ a {
   width: 100%;
   height: 50px;
   float: left;
+}
+.email-text-container {
+  width: 50%;
 }
 </style>

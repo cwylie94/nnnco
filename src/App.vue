@@ -4,17 +4,17 @@
       <img alt="Vue logo" src="./assets/nnnco_logo.png" />
     </div>
     <h2 class="email-client-title">Email Client</h2>
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <EmailClient/>
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import EmailClient from "./components/EmailClient.vue";
 
 export default {
   name: "app",
   components: {
-    HelloWorld
+    EmailClient
   }
 };
 </script>
