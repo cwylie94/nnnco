@@ -4,7 +4,7 @@
       <img alt="Vue logo" src="./assets/nnnco_logo.png" />
     </div>
     <h2 class="email-client-title">Email Client</h2>
-    <EmailClient/>
+    <EmailClient />
   </div>
 </template>
 

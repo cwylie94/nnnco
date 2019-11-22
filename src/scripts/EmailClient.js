@@ -1,11 +1,11 @@
 import validator from "validator";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
-import {validateEmailData, sendEmail} from "../api/EmailService";
+import { validateEmailData, sendEmail } from "../api/EmailService";
 
 export default {
   name: "EmailClient",
-  data: function () {
+  data: function() {
     return {
       fromName: "",
       fromEmail: "",
@@ -26,7 +26,7 @@ export default {
       isValidCC: true,
       isValidBCC: true,
       isValidFromEmail: true
-    }
+    };
   },
   methods: {
     addEmail(list, email) {
@@ -79,9 +79,9 @@ export default {
         ccList: this.ccList,
         bccList: this.bccList
       };
-      validateEmailData(email, (response) => {
+      validateEmailData(email, response => {
         if (response) {
-          sendEmail(email, (res) => {
+          sendEmail(email, res => {
             if (res) {
               this.submitEmailSuccess = true;
             } else {
@@ -94,4 +94,4 @@ export default {
       });
     }
   }
-}
+};

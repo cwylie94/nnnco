@@ -14,20 +14,21 @@ export function validateEmailData(email, callback) {
   const config = {
     headers: {
       "Access-Control-Allow-Origin": "*",
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
+      "Content-Type": "application/json",
+      Accept: "application/json"
     }
   };
-  axios.post("/v1/api/emails", validationParams, config)
-  .then((response) => {
-    if (response.status === 200) {
-      callback(true)
-    }
-  })
-  .catch(() => {
-    callback(false);
-  });
-};
+  axios
+    .post("/v1/api/emails", validationParams, config)
+    .then(response => {
+      if (response.status === 200) {
+        callback(true);
+      }
+    })
+    .catch(() => {
+      callback(false);
+    });
+}
 
 export function sendEmail(email, callback) {
   const templateParams = {
@@ -39,10 +40,19 @@ export function sendEmail(email, callback) {
     cc: email.ccList,
     bcc: email.bccList
   };
-  emailjs.send("mailgun", "template_4OATzjxr", templateParams, "user_dDd3vEsNsr0d97jTg8i3z")
-  .then(() => {
-    callback(true);
-  }, () => {
-    callback(false);
-  });
-};
+  emailjs
+    .send(
+      "mailgun",
+      "template_4OATzjxr",
+      templateParams,
+      "user_dDd3vEsNsr0d97jTg8i3z"
+    )
+    .then(
+      () => {
+        callback(true);
+      },
+      () => {
+        callback(false);
+      }
+    );
+}
