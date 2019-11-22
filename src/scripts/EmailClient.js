@@ -1,8 +1,7 @@
 import validator from "validator";
-import emailjs from "emailjs-com";
-import axios from "axios";
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap-vue/dist/bootstrap-vue.css';
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap-vue/dist/bootstrap-vue.css";
+import {validateEmailData, sendEmail} from "../api/EmailService";
 
 export default {
   name: "EmailClient",
@@ -61,23 +60,6 @@ export default {
         this.isValidBCC = false;
       }
     },
-    sendEmail() {
-      const templateParams = {
-        fromName: this.fromName,
-        fromEmail: this.fromEmail,
-        emailText: this.emailText,
-        subject: this.subject,
-        recepientEmails: this.recepientEmails,
-        cc: this.ccList,
-        bcc: this.bccList
-      };
-      emailjs.send("mailgun", "template_4OATzjxr", templateParams, "user_dDd3vEsNsr0d97jTg8i3z")
-      .then(() => {
-        this.submitEmailSuccess = true;
-      }, () => {
-        this.submitEmailFailed = true;
-      });
-    },
     validateEmail(event) {
       event.preventDefault();
       if (!validator.isEmail(this.fromEmail)) {
@@ -88,31 +70,28 @@ export default {
         this.recepientEmailsInvalid = true;
         return;
       }
-      const validationParams = {
-        from: this.fromEmail,
+      const email = {
+        fromName: this.fromName,
+        fromEmail: this.fromEmail,
         subject: this.subject,
-        text: this.emailText,
-        html: this.emailText,
-        toList: this.recepientEmails,
+        emailText: this.emailText,
+        recepientEmails: this.recepientEmails,
         ccList: this.ccList,
         bccList: this.bccList
       };
-      const config = {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
+      validateEmailData(email, (response) => {
+        if (response) {
+          sendEmail(email, (res) => {
+            if (res) {
+              this.submitEmailSuccess = true;
+            } else {
+              this.submitEmailFailed = true;
+            }
+          });
+        } else {
+          this.submitEmailFailed = true;
         }
-      };
-      axios.post("/v1/api/emails", validationParams, config)
-      .then((response) => {
-        if (response.status === 200) {
-          this.sendEmail();
-        }
-      })
-      .catch(() => {
-        this.submitEmailFailed = true;
       });
     }
   }
-};
+}
