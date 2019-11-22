@@ -60,6 +60,9 @@
         max-rows="6">
       </b-form-textarea>
     <b-button type="submit" variant="primary">Submit</b-button>
+    <b-alert v-model="submitEmailFailed" variant="danger" dismissible>
+      Email validation failed, please try again
+    </b-alert>
   </b-form>
   </div>
 </template>
@@ -88,7 +91,8 @@ export default {
       emailText: "",
       recepientEmailsInvalid: false,
       ccEmailsInvalid: false,
-      bccEmailsInvalid: false
+      bccEmailsInvalid: false,
+      submitEmailFailed: false,
     }
   },
   computed: {
@@ -139,7 +143,7 @@ export default {
         from: "wyliec94@gmail.com",
         subject: this.subject,
         text: this.emailText,
-        html: "",
+        html: this.emailText,
         toList: this.recepientEmails,
         ccList: [],
         bccList: []
@@ -151,13 +155,15 @@ export default {
           'Accept': 'application/json'
         }
       };
-      axios.get("https://tt-email-gateway.nnnco.io/v1/api/emails", validationParams, config)
+      axios.post("/v1/api/emails", validationParams, config)
       .then((response) => {
-        alert(JSON.stringify(response));
-        // this.sendEmail();
+        if (response.status === 200) {
+          alert(response.status);
+          // this.sendEmail();
+        }
       })
-      .catch((error) => {
-        alert(JSON.stringify(error));
+      .catch(() => {
+        this.submitEmailFailed = true;
       });
     }
   }
