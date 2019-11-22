@@ -23,6 +23,7 @@
           v-model="recepientEmail"
           type="email"
           placeholder="Email"
+          @keyup="isValidEmail = true"
           :state="isValidEmail"/>
         <b-button
           variant="secondary"
@@ -52,6 +53,7 @@
             v-model="cc"
             type="email"
             placeholder="cc"
+            @keyup="isValidCC = true"
             :state="isValidCC"/>
             <b-button
               variant="secondary"
@@ -82,6 +84,7 @@
             v-model="bcc"
             type="email"
             placeholder="bcc"
+            @keyup="isValidBCC = true"
             :state="isValidCC"/>
             <b-button
               variant="secondary"
@@ -144,19 +147,11 @@ export default {
       ccEmailsInvalid: false,
       bccEmailsInvalid: false,
       submitEmailFailed: false,
-      submitEmailSuccess: false
+      submitEmailSuccess: false,
+      isValidEmail: true,
+      isValidCC: true,
+      isValidBCC: true
     }
-  },
-  computed: {
-    isValidEmail() {
-      return validator.isEmail(this.recepientEmail);
-    },
-    isValidCC() {
-      return validator.isEmail(this.cc);
-    },
-    isValidBCC() {
-      return validator.isEmail(this.bcc);
-    },
   },
   methods: {
     addEmail(list, email) {
@@ -172,16 +167,22 @@ export default {
     addRecepientEmail(list, email) {
       if (this.addEmail(list, email)) {
         this.recepientEmail = "";
+      } else {
+        this.isValidEmail = false;
       }
     },
     addCCEmail(list, email) {
       if (this.addEmail(list, email)) {
         this.cc = "";
+      } else {
+        this.isValidCC = false;
       }
     },
     addBCCEmail(list, email) {
       if (this.addEmail(list, email)) {
         this.bcc = "";
+      } else {
+        this.isValidBCC = false;
       }
     },
     sendEmail() {
