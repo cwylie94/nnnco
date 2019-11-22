@@ -3,6 +3,7 @@
     <div class="banner">
       <img alt="Vue logo" src="./assets/nnnco_logo.png" />
     </div>
+    <h2 class="email-client-title">Email Client</h2>
     <HelloWorld msg="Welcome to Your Vue.js App" />
   </div>
 </template>
@@ -31,5 +32,8 @@ export default {
   background-color: #4C4747;
   padding-top: 20px;
   padding-bottom: 20px;
+}
+.email-client-title {
+  margin-top: 20px;
 }
 </style>

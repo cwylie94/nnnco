@@ -260,13 +260,19 @@ a {
   border-width: 5px;
   border-color: lightgrey;
   padding: 20px;
-  margin-top: 30px;
+  margin-top: 20px;
   margin-bottom: 30px;
 }
 .email-form {
   margin-top: 20px;
   float: left;
   width: 100%;
+  border-style: solid;
+  border-width: 3px;
+  border-color: silver;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: lightgrey;
 }
 .email-form-input {
   float: left;
@@ -283,13 +289,14 @@ a {
 .email-list-container {
   border-style: solid;
   border-width: 2px;
-  border-color: lightgrey;
-  border-radius: 10px;
+  border-color: darkgrey;
+  border-radius: 5px;
   width: 90%;
   height: 70px;
   overflow: auto;
   float: right;
-  padding: 5px;
+  padding: 3px;
+  background-color: silver;
 }
 .email-form-text {
   float: left;
@@ -301,10 +308,11 @@ a {
   display: inline;
   border-style: solid;
   border-width: 2px;
-  border-color: lightgrey;
+  border-color: darkgrey;
   border-radius: 20px;
   padding: 6px;
   background-color: whitesmoke;
+  margin-top: 5px;
 }
 .cc-wrapper {
   float: left;
