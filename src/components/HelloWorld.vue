@@ -154,22 +154,27 @@ export default {
     addEmail(list, email) {
       if (validator.isEmail(email)) {
         list.push(email);
+        return true;
       }
+      return false;
     },
     removeEmail(list, index) {
       list.splice(index, 1);
     },
     addRecepientEmail(list, email) {
-      this.addEmail(list, email);
-      this.recepientEmail = "";
+      if (this.addEmail(list, email)) {
+        this.recepientEmail = "";
+      }
     },
     addCCEmail(list, email) {
-      this.addEmail(list, email);
-      this.cc = "";
+      if (this.addEmail(list, email)) {
+        this.cc = "";
+      }
     },
     addBCCEmail(list, email) {
-      this.addEmail(list, email);
-      this.bcc = "";
+      if (this.addEmail(list, email)) {
+        this.bcc = "";
+      }
     },
     sendEmail() {
       const templateParams = {
