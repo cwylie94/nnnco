@@ -153,9 +153,9 @@ export default {
   data: function () {
     return {
       fromName: "",
-      fromEmail: "wyliec94@gmail.com",
+      fromEmail: "",
       recepientEmail: "",
-      recepientEmails: ["wyliec94@gmail.com", "email1"],
+      recepientEmails: [],
       cc: "",
       ccList: [],
       bcc: "",
