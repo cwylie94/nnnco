@@ -15,7 +15,7 @@ export function validateEmailData(email, callback) {
     headers: {
       "Access-Control-Allow-Origin": "*",
       "Content-Type": "application/json",
-      Accept: "application/json"
+      "Accept": "application/json"
     }
   };
   axios
