@@ -12,7 +12,7 @@ app.post("/emails", (req, res) => {
       res.json(response.data);
     })
     .catch(error => {
-      res.sendStatus(error.status);
+      res.send(error);
     });
 });
 
