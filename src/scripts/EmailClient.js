@@ -9,15 +9,15 @@ export default {
     return {
       fromName: "",
       fromEmail: "",
-      recepientEmail: "",
-      recepientEmails: [],
+      recipientEmail: "",
+      recipientEmails: [],
       cc: "",
       ccList: [],
       bcc: "",
       bccList: [],
       subject: "",
       emailText: "",
-      recepientEmailsInvalid: false,
+      recipientEmailsInvalid: false,
       ccEmailsInvalid: false,
       bccEmailsInvalid: false,
       submitEmailFailed: false,
@@ -39,9 +39,9 @@ export default {
     removeEmail(list, index) {
       list.splice(index, 1);
     },
-    addRecepientEmail(list, email) {
+    addrecipientEmail(list, email) {
       if (this.addEmail(list, email)) {
-        this.recepientEmail = "";
+        this.recipientEmail = "";
       } else {
         this.isValidEmail = false;
       }
@@ -66,8 +66,8 @@ export default {
         this.isValidFromEmail = false;
         return;
       }
-      if (this.recepientEmails.length < 1) {
-        this.recepientEmailsInvalid = true;
+      if (this.recipientEmails.length < 1) {
+        this.recipientEmailsInvalid = true;
         return;
       }
       const email = {
@@ -75,7 +75,7 @@ export default {
         fromEmail: this.fromEmail,
         subject: this.subject,
         emailText: this.emailText,
-        recepientEmails: this.recepientEmails,
+        recipientEmails: this.recipientEmails,
         ccList: this.ccList,
         bccList: this.bccList
       };

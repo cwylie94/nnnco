@@ -7,7 +7,7 @@ export function validateEmailData(email, callback) {
     subject: email.subject,
     text: email.emailText,
     html: email.emailText,
-    toList: email.recepientEmails,
+    toList: email.recipientEmails,
     ccList: email.ccList,
     bccList: email.bccList
   };
@@ -36,7 +36,7 @@ export function sendEmail(email, callback) {
     fromEmail: email.fromEmail,
     emailText: email.emailText,
     subject: email.subject,
-    recepientEmails: email.recepientEmails,
+    recipientEmails: email.recipientEmails,
     cc: email.ccList,
     bcc: email.bccList
   };

@@ -25,13 +25,13 @@
 
       <b-alert
         class="email-error-alert"
-        v-model="recepientEmailsInvalid"
+        v-model="recipientEmailsInvalid"
         variant="danger"
         dismissible
       >
-        Please add at least one recepient
+        Please add at least one recipient
       </b-alert>
-      <b-form-group class="email-form" label-for="recepient-email-input">
+      <b-form-group class="email-form" label-for="recipient-email-input">
         <div class="email-form-text">
           To:
         </div>
@@ -39,23 +39,23 @@
           <ul id="item-list">
             <li
               class="email-form-list-item"
-              v-for="(item, index) of recepientEmails"
+              v-for="(item, index) of recipientEmails"
               v-bind:key="index"
               :id="item"
             >
               {{ item }}
               <b-button
                 class="btn btn-danger btn-sm"
-                @click="removeEmail(recepientEmails, index)"
+                @click="removeEmail(recipientEmails, index)"
                 >X</b-button
               >
             </li>
           </ul>
         </div>
         <b-form-input
-          id="recepient-email-input"
+          id="recipient-email-input"
           class="email-form-input"
-          v-model="recepientEmail"
+          v-model="recipientEmail"
           type="email"
           placeholder="Email"
           @keyup="isValidEmail = true"
@@ -64,7 +64,7 @@
         <b-button
           variant="secondary"
           class="email-form-button"
-          @click="addRecepientEmail(recepientEmails, recepientEmail)"
+          @click="addrecipientEmail(recipientEmails, recipientEmail)"
           >+</b-button
         >
       </b-form-group>
@@ -92,7 +92,7 @@
             </ul>
           </div>
           <b-alert v-model="ccEmailsInvalid" variant="danger" dismissible>
-            Please add at least one recepient
+            Please add at least one recipient
           </b-alert>
           <b-form-input
             id="cc-email-input"
@@ -135,7 +135,7 @@
             </ul>
           </div>
           <b-alert v-model="bccEmailsInvalid" variant="danger" dismissible>
-            Please add at least one recepient
+            Please add at least one recipient
           </b-alert>
           <b-form-input
             id="bcc-email-input"
